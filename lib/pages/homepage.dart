@@ -59,7 +59,7 @@ class HomePage extends StatelessWidget {
         Navigator.pushNamed(context, router);
       },
       leading: myicon,
-      title: Text(mytext),
+      title: Text("mytext"),
     );
   }
 }
