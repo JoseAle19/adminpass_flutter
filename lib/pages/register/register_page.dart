@@ -12,7 +12,7 @@ class RegisterPage extends StatelessWidget {
       child: Scaffold(
         bottomNavigationBar: SizedBox(
           height: 50,
-          child: _textReg(),
+          child: _textReg(con),
         ),
         body: Stack(
           //poicicionar elemnetos uno encimna del otro
@@ -55,26 +55,37 @@ class RegisterPage extends StatelessWidget {
     );
   }
 
-  Widget _textReg() {
+  Widget _textReg(RegisterController con) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
-      children: const [
-        Text(
+      children: [
+        const Text(
           '¿Ya tienes cuenta?',
           style: TextStyle(
             color: Colors.black,
-            fontSize: 17,
+            fontSize: 15,
           ),
         ),
-        SizedBox(
+        const SizedBox(
           width: 7,
         ),
-        Text(
-          'Inicia Sesion',
-          style: TextStyle(
-            color: Color.fromARGB(255, 74, 97, 202),
-            fontWeight: FontWeight.bold,
-            fontSize: 17,
+        GestureDetector(
+          onTap: () {
+            con.gotologin();
+          },
+          child: Container(
+            alignment: Alignment.center,
+            // color: Colors.red,
+            height: 30,
+            width: 100,
+            child: const Text(
+              'Inicia Sesion',
+              style: TextStyle(
+                color: Color.fromARGB(255, 164, 125, 248),
+                fontWeight: FontWeight.bold,
+                fontSize: 15,
+              ),
+            ),
           ),
         ),
       ],
@@ -144,7 +155,7 @@ Widget _textName(RegisterController con) {
 
 Widget _textApe(RegisterController con) {
   return TextField(
-    controller: con.emailctrl,
+    controller: con.lastnamectrl,
     keyboardType: TextInputType.text,
     decoration: const InputDecoration(
         hintText: 'Introduce tu Apellido',
@@ -215,7 +226,7 @@ Widget _botonlogin(RegisterController con) {
         style: ElevatedButton.styleFrom(
             padding: const EdgeInsets.symmetric(vertical: 15)),
         child: const Text(
-          'REGISTRATE',
+          'Registrarse',
           style: TextStyle(color: Color.fromARGB(255, 235, 229, 236)),
         )),
   );

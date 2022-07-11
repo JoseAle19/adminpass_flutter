@@ -16,6 +16,8 @@ class LoginPage extends StatelessWidget {
     return SafeArea(
         child: SlideInLeft(
       child: Scaffold(
+        bottomNavigationBar:
+            SizedBox(height: 100, child: registernewuser(context, mycolor, con)),
         body: Stack(
           children: [
             Positioned(
@@ -61,7 +63,7 @@ class LoginPage extends StatelessWidget {
                       ),
                     ),
                     button(mycolor, con),
-                    registernewuser(context, mycolor, con)
+                    // registernewuser(context, mycolor, con)
                   ],
                 ),
               ),
@@ -76,7 +78,7 @@ class LoginPage extends StatelessWidget {
     return Container(
       // color: Colors.red,
       margin: const EdgeInsets.only(left: 20, right: 20),
-      height: 200,
+      height: 210,
       child: Image.asset(
         "assets/image2.png",
         fit: BoxFit.cover,
@@ -88,7 +90,6 @@ class LoginPage extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         login.login();
-        print("pressed");
       },
       child: Container(
         alignment: Alignment.center,
@@ -108,7 +109,7 @@ class LoginPage extends StatelessWidget {
   }
 
   Widget registernewuser(context, mycolor, LoginController goregister) {
-    final mystyle = const TextStyle(fontSize: 15, fontWeight: FontWeight.bold);
+    final mystyle = const TextStyle(fontSize: 12, fontWeight: FontWeight.bold);
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -127,7 +128,7 @@ class LoginPage extends StatelessWidget {
           child: Text(
             "Crear una cuenta nueva",
             style: TextStyle(
-                fontSize: 15, fontWeight: FontWeight.bold, color: mycolor),
+                fontSize: 12, fontWeight: FontWeight.bold, color: mycolor),
           ),
         )
       ],

@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:prueba/models/responseapi.dart';
 import 'package:prueba/providers/usersprovider.dart';
 
@@ -24,19 +25,29 @@ class LoginController extends GetxController {
             backgroundColor: const Color.fromARGB(145, 245, 189, 186),
             duration: const Duration(seconds: 2));
       } else {
-        Get.snackbar(responseapi.message ?? "", responseapi.data,
+        Get.snackbar("Bienvenido", " Hola ${responseapi.data["name"]}",
             icon: const Icon(
               Icons.star,
-              color: Colors.green,
+              color: Color.fromARGB(243, 10, 245, 17),
             ),
-            backgroundColor: const Color.fromARGB(145, 173, 239, 190),
+            backgroundColor: const Color.fromARGB(175, 98, 231, 102),
             duration: const Duration(seconds: 2));
+        GetStorage().write(
+            "user",
+            responseapi
+                .data); //guarda los datos del usurio logeado en la aplicacion
+        print(responseapi.data);
+        gotohomepage();
       }
     }
   }
 
   void gotoregister() {
-    Get.offAndToNamed("registerpage");
+    Get.offAndToNamed("/registerpage");
+  }
+
+  void gotohomepage() {
+    Get.offAndToNamed("/homepage");
   }
 
   bool isinputsvalid(String email, String password) {

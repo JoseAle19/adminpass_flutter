@@ -1,5 +1,9 @@
+// ignore_for_file: unused_local_variable
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:prueba/models/User.dart';
+import 'package:prueba/providers/usersprovider.dart';
 
 class RegisterController extends GetxController {
   final TextEditingController emailctrl = TextEditingController();
@@ -10,8 +14,11 @@ class RegisterController extends GetxController {
   final TextEditingController phonectrl = TextEditingController();
   final TextEditingController agectrl = TextEditingController();
   final TextEditingController questionctrl = TextEditingController();
+  //
+  UserProvider userprovider = UserProvider(); //  instancia de la petcion http
+  //
 
-  void registeruser() {
+  void registeruser() async {
     String email = emailctrl.text.trim();
     String password = passwordctrl.text.trim();
     String confirmpass = confirmpasswrdctrl.text.trim();
@@ -19,10 +26,32 @@ class RegisterController extends GetxController {
     String lastname = lastnamectrl.text.trim();
     String phone = phonectrl.text.trim();
     String age = agectrl.text.trim();
-    String ques = questionctrl.text.trim();
+    String answerques = questionctrl.text.trim();
     if (isvalidfields(
-        email, password, confirmpass, name, lastname, phone, age, ques)) {
-      Get.snackbar("true", "Hacer peticion http");
+        email, password, confirmpass, name, lastname, phone, age, answerques)) {
+      User user = User(
+        email: email,
+        password: password,
+        name: name,
+        lastName: lastname,
+        phone: phone,
+        age: age,
+        answerques: answerques,
+      );
+      Response response = await userprovider.registernewuser(user);
+
+      print("RESPONSE ${response.body}");
+
+      if (response.body["success"] == true) {
+        Get.snackbar("Cuenta creada", "Por favor registrate",
+            backgroundColor: const Color.fromARGB(190, 76, 175, 79),
+            icon: const Icon(Icons.verified_user));
+        Get.offAndToNamed("/loginpage");
+      } else {
+        Get.snackbar("Error al crear tu cuenta", response.body["message"],
+            backgroundColor: const Color.fromARGB(195, 238, 97, 87),
+            icon: const Icon(Icons.error));
+      }
     }
   }
 
@@ -44,15 +73,16 @@ class RegisterController extends GetxController {
       Get.snackbar("Error en el registro", "Contraseña vacia");
       return false;
     }
-    if (confirmpass.isEmpty) {
-      Get.snackbar("Error en el registro", "Confirma contraseña");
-      return false;
-    }
-//comparar contraseñas
+//     if (confirmpass.isEmpty) {
+//       Get.snackbar("Error en el registro", "Confirma contraseña");
+//       return false;
+//     }
+// //comparar contraseñas
 
-    if (confirmpass != password) {
-      Get.snackbar("Error", "Las contraseñas no coinciden");
-    }
+//     if (confirmpass != password) {
+//       Get.snackbar("Error", "Las contraseñas no coinciden");
+//       return false;
+//     }
     if (name.isEmpty) {
       Get.snackbar("Error en el registro", "Nombre vacio");
       return false;
