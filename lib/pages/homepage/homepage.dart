@@ -1,16 +1,12 @@
-// ignore_for_file: prefer_const_constructors, use_key_in_widget_constructors, must_be_immutable
+// ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:prueba/pages/homepage/home_controller.dart';
 
 class HomePage extends StatelessWidget {
   int page = 0;
 
   @override
   Widget build(BuildContext context) {
-    HomePageController conhome = Get.put(HomePageController());
-
     final draweheader = UserAccountsDrawerHeader(
       margin: const EdgeInsets.only(right: 100),
       accountName: Text("tecnofull"),
@@ -33,23 +29,14 @@ class HomePage extends StatelessWidget {
           child: ListView(
             physics: const BouncingScrollPhysics(),
             children: [
-            ListTile(
-                leading: Icon(Icons.person),
-                title: const Text("Ver perfil"),
-                onTap: () {
-                  conhome.gotoprofile();
-                },
-              ),
+              listtiles(Icon(Icons.person), "Ver perfil", context, "/"),
+              listtiles(Icon(Icons.category), "Crear categoria", context,
+                  "/createnewcategory"),
+              listtiles(Icon(Icons.search), "Ver categoria", context, "/"),
               SizedBox(
                 height: 250,
               ),
-              ListTile(
-                leading: Icon(Icons.logout),
-                title: const Text("Salir"),
-                onTap: () {
-                  conhome.logout();
-                },
-              )
+              listtiles(Icon(Icons.logout), "Salir", context, "/")
             ],
           ),
         ))
@@ -61,6 +48,17 @@ class HomePage extends StatelessWidget {
         centerTitle: true,
       ),
       drawer: listitems,
+    );
+  }
+
+  Widget listtiles(Widget myicon, String mytext, context, String router) {
+    return ListTile(
+      onTap: () {
+        Navigator.pop(context);
+        Navigator.pushNamed(context, router);
+      },
+      leading: myicon,
+      title: Text("mytext"),
     );
   }
 }
