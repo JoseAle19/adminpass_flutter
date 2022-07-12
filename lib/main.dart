@@ -4,6 +4,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:prueba/models/User.dart';
 import 'package:prueba/pages/homepage/homepage.dart';
 import 'package:prueba/pages/login/loginpage.dart';
+import 'package:prueba/pages/note/notepage.dart';
 import 'package:prueba/pages/profile/profilepage.dart';
 import 'package:prueba/pages/register/register_page.dart';
 import 'pages/homepage/homepage.dart';
@@ -25,7 +26,7 @@ class MyApp extends StatelessWidget {
       title: "NOTAS",
       // initialRoute: myuser.email != null ? "/homepage" : "/loginpage",
       //signo de pregunta(?) significa entonces id ternario y dos(??) si es null
-      initialRoute: "/createnewcategory",
+      initialRoute: "/notepage",
       getPages: [
         GetPage(name: "/loginpage", page: () => const LoginPage()),
         GetPage(name: "/registerpage", page: () => const RegisterPage()),
@@ -33,6 +34,7 @@ class MyApp extends StatelessWidget {
         GetPage(
             name: "/createnewcategory", page: () => const CreateNewCatetgory()),
         GetPage(name: "/profilepage", page: () => const ProfilePage()),
+        GetPage(name: "/notepage", page: () => Notepage()),
       ],
     );
   }
