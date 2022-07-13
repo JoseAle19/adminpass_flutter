@@ -13,4 +13,7 @@ class HomePageController extends GetxController {
   void gotocreatenote(){
     Get.toNamed("/notepage");
   }
+  void gotogetcategorys(){
+    Get.toNamed("/getcategorys");
+  }
 }

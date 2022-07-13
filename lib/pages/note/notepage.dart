@@ -27,36 +27,22 @@ class _NotepageState extends State<Notepage> {
           'Agregar Nota',
           style: TextStyle(
             color: Color.fromARGB(255, 235, 229, 229),
-            fontSize: 25,
           ),
-        ),
-        leading: IconButton(
-          onPressed: () {},
-          icon: const Icon(Icons.note_add),
         ),
       ),
       body: Stack(
-        //poicicionar elemnetos uno encimna del otro
         children: [
-          _backgroundCover(),
           _boxform(context, connote),
           Column(
-            children: const [
-              //pocisionar uno debajo  del otro de manera vertical
-            ],
+            children: const [],
           )
         ],
       ),
     );
   }
 
-  Widget _backgroundCover() {
-    return Container(
-      width: double.infinity,
-      height: 800,
-      color: const Color.fromARGB(255, 187, 185, 185),
-    );
-  }
+ 
+  
 
 //COLOR DEL FONDO DE PANTALLA
   Widget _boxform(BuildContext context, connote) {

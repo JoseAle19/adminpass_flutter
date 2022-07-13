@@ -4,6 +4,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:prueba/models/user.dart';
 
 import 'pages/categpry/createategory.dart';
+import 'pages/categpry/seecategorys.dart';
 import 'pages/homepage/homepage.dart';
 import 'pages/login/loginpage.dart';
 import 'pages/note/notepage.dart';
@@ -31,11 +32,12 @@ class MyApp extends StatelessWidget {
       getPages: [
         GetPage(name: "/loginpage", page: () => const LoginPage()),
         GetPage(name: "/registerpage", page: () => const RegisterPage()),
-        GetPage(name: "/homepage", page: () => const HomePage()),
+        GetPage(name: "/homepage", page: () =>   HomePage()),
         GetPage(
             name: "/createnewcategory", page: () => const CreateNewCatetgory()),
         GetPage(name: "/profilepage", page: () => const ProfilePage()),
         GetPage(name: "/notepage", page: () => const Notepage()),
+        GetPage(name: "/getcategorys", page: () =>   ListCategorys()),
       ],
     );
   }

@@ -1,22 +1,29 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:prueba/models/user.dart';
 
 import 'home_controller.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({Key? key}) : super(key: key);
-
+  HomePage({Key? key}) : super(key: key);
+  User myuser = User.fromJson(GetStorage().read("user") ?? {});
   @override
   Widget build(BuildContext context) {
     HomePageController conhome = Get.put(HomePageController());
-    const draweheader = UserAccountsDrawerHeader(
-      margin: EdgeInsets.only(right: 100),
-      accountName: Text("tecnofull"),
-      accountEmail: Text("tecnofull@gmail.com"),
-      currentAccountPicture: CircleAvatar(
+    final draweheader = UserAccountsDrawerHeader(
+      decoration: const BoxDecoration(color:   Color.fromARGB(255, 92, 93, 94)),
+      margin: const EdgeInsets.only(right: 100),
+      accountName: Text(myuser.name ?? ""),
+      accountEmail: Text(myuser.email ?? ""),
+      currentAccountPicture: const CircleAvatar(
+        backgroundColor: Colors.black,
         child: Icon(
-          Icons.person,
+          Icons.person_pin,
           size: 60,
+          color: Colors.white,
         ),
       ),
     );
@@ -40,17 +47,20 @@ class HomePage extends StatelessWidget {
               ),
               ListTile(
                 onTap: () {
+                  conhome.gotogetcategorys();
+                },
+                leading: const Icon(Icons.category),
+                title: const Text("Ver categorias"),
+              ),
+              const SizedBox(
+                height: 250,
+              ),
+              ListTile(
+                onTap: () {
                   conhome.logout();
                 },
                 leading: const Icon(Icons.category),
                 title: const Text("Cerrar sesion"),
-              ),
-              ListTile(
-                onTap: () {
-                  conhome.gotocreatenote();
-                },
-                leading: const Icon(Icons.category),
-                title: const Text("Crear nota"),
               ),
             ],
           ),
@@ -59,6 +69,7 @@ class HomePage extends StatelessWidget {
     );
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: const Color.fromARGB(255, 92, 93, 94),
         title: const Text("Administrador de contraseñas"),
         centerTitle: true,
       ),
