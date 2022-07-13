@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:prueba/models/User.dart';
+import 'package:prueba/models/user.dart';
 import 'package:prueba/providers/usersprovider.dart';
 
 class RegisterController extends GetxController {
@@ -40,7 +40,6 @@ class RegisterController extends GetxController {
       );
       Response response = await userprovider.registernewuser(user);
 
-      print("RESPONSE ${response.body}");
 
       if (response.body["success"] == true) {
         Get.snackbar(

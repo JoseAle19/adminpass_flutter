@@ -1,17 +1,16 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:prueba/pages/homepage/home_controller.dart';
+
+import 'home_controller.dart';
 
 class HomePage extends StatelessWidget {
-  int page = 0;
+  const HomePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     HomePageController conhome = Get.put(HomePageController());
-    final draweheader = UserAccountsDrawerHeader(
-      margin: const EdgeInsets.only(right: 100),
+    const draweheader = UserAccountsDrawerHeader(
+      margin: EdgeInsets.only(right: 100),
       accountName: Text("tecnofull"),
       accountEmail: Text("tecnofull@gmail.com"),
       currentAccountPicture: CircleAvatar(
@@ -36,15 +35,22 @@ class HomePage extends StatelessWidget {
                 onTap: () {
                   Get.toNamed("/createnewcategory");
                 },
-                leading: Icon(Icons.category),
-                title: Text("Crear categoria"),
+                leading: const Icon(Icons.category),
+                title: const Text("Crear categoria"),
               ),
               ListTile(
                 onTap: () {
-                      conhome.logout();
+                  conhome.logout();
                 },
-                leading: Icon(Icons.category),
-                title: Text("Cerrar sesion"),
+                leading: const Icon(Icons.category),
+                title: const Text("Cerrar sesion"),
+              ),
+              ListTile(
+                onTap: () {
+                  conhome.gotocreatenote();
+                },
+                leading: const Icon(Icons.category),
+                title: const Text("Crear nota"),
               ),
             ],
           ),
@@ -67,7 +73,7 @@ class HomePage extends StatelessWidget {
         Navigator.pushNamed(context, router);
       },
       leading: myicon,
-      title: Text("mytext"),
+      title: const Text("mytext"),
     );
   }
 }

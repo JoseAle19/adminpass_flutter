@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:prueba/models/User.dart';
+import 'package:prueba/models/user.dart';
 import 'package:prueba/models/category.dart';
 import 'package:prueba/providers/categoryprovider.dart';
 
@@ -22,7 +22,7 @@ User user = User.fromJson(GetStorage().read("user") ?? {});
       );
     } else {
       Category category = Category(descriptionCategory: namecategory,
-      idUsers: user.id_user);
+      idUsers: user.iduser);
       Response response = await categoryProvider.registercategory(category);
 
       if (response.body["success"] == false) {

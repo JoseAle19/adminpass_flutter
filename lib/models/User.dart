@@ -1,4 +1,4 @@
-// ignore_for_file: non_constant_identifier_names
+// ignore_for_file: file_names
 
 import 'dart:convert';
 
@@ -9,7 +9,7 @@ String userToJson(User data) => json.encode(data.toJson());
 class User {
   User({
     this.email,
-    this.id_user,
+    this.iduser,
     this.password,
     this.name,
     this.lastName,
@@ -18,7 +18,7 @@ class User {
     this.answerques,
   });
 
-  String? id_user;
+  String? iduser;
   String? email;
   String? password;
   String? name;
@@ -28,7 +28,7 @@ class User {
   String? answerques;
 
   factory User.fromJson(Map<String, dynamic> json) => User(
-        id_user: json["id_user"].toString(),
+        iduser: json["id_user"].toString(),
         email: json["email"],
         password: json["password"],
         name: json["name"],
@@ -40,7 +40,7 @@ class User {
 
   Map<String, dynamic> toJson() => {
         "email": email,
-        "id_user": id_user,
+        "id_user": iduser,
         "password": password,
         "name": name,
         "Last_name": lastName,

@@ -36,7 +36,6 @@ class LoginController extends GetxController {
             "user",
             responseapi
                 .data); //guarda los datos del usurio logeado en la aplicacion
-        print(responseapi.data);
         gotohomepage();
       }
     }

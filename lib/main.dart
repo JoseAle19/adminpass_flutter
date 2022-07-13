@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:prueba/models/User.dart';
-import 'package:prueba/pages/homepage/homepage.dart';
-import 'package:prueba/pages/login/loginpage.dart';
-import 'package:prueba/pages/profile/profilepage.dart';
-import 'package:prueba/pages/register/register_page.dart';
+import 'package:prueba/models/user.dart';
+
 import 'pages/categpry/createategory.dart';
+import 'pages/homepage/homepage.dart';
+import 'pages/login/loginpage.dart';
+import 'pages/note/notepage.dart';
+import 'pages/profile/profilepage.dart';
+import 'pages/register/register_page.dart';
+ 
 
 User myuser = User.fromJson(GetStorage().read("user") ?? {});
 void main() async {
@@ -19,7 +22,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(myuser.email);
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: "NOTAS",
@@ -29,10 +31,11 @@ class MyApp extends StatelessWidget {
       getPages: [
         GetPage(name: "/loginpage", page: () => const LoginPage()),
         GetPage(name: "/registerpage", page: () => const RegisterPage()),
-        GetPage(name: "/homepage", page: () => HomePage()),
+        GetPage(name: "/homepage", page: () => const HomePage()),
         GetPage(
             name: "/createnewcategory", page: () => const CreateNewCatetgory()),
         GetPage(name: "/profilepage", page: () => const ProfilePage()),
+        GetPage(name: "/notepage", page: () => const Notepage()),
       ],
     );
   }

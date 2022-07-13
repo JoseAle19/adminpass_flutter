@@ -12,7 +12,7 @@ class CreateNewCatetgory extends StatelessWidget {
     return SafeArea(
       child: SlideInRight(
         child: Scaffold(
-          bottomNavigationBar: Container(
+          bottomNavigationBar: SizedBox(
             // color: Colors.amber,
             height: 70,
             child: Center(

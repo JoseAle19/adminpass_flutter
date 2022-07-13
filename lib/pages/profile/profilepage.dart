@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:prueba/models/User.dart';
+import 'package:prueba/models/user.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
@@ -9,7 +9,7 @@ class ProfilePage extends StatelessWidget {
   Widget build(BuildContext context) {
     User user = User.fromJson(GetStorage().read("user"));
     return Scaffold(
-      bottomNavigationBar: Container(
+      bottomNavigationBar: SizedBox(
         height: 50,
         child: _textedit(),
       ),
@@ -39,10 +39,7 @@ class ProfilePage extends StatelessWidget {
   }
 
   Widget _backgroundCover(context){
-    return Container(
-      // color: Colors.red,
-      child: const Icon(Icons.person_pin_circle_rounded, size: 90, color: Color.fromARGB(255, 92, 93, 94),),
-    );
+    return const Icon(Icons.person_pin_circle_rounded, size: 90, color: Color.fromARGB(255, 92, 93, 94),);
   }
 
   Widget _boxform(BuildContext context, User user) {

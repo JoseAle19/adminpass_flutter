@@ -1,10 +1,9 @@
 // ignore_for_file: prefer_interpolation_to_compose_strings, non_constant_identifier_names
 
-import 'dart:convert';
 
 import 'package:get/get.dart';
 import 'package:prueba/enviroments/enviroments.dart';
-import 'package:prueba/models/User.dart';
+import 'package:prueba/models/user.dart';
 import 'package:prueba/models/responseapi.dart';
 
 class UserProvider extends GetConnect {
