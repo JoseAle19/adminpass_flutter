@@ -1,12 +1,15 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:prueba/pages/homepage/home_controller.dart';
 
 class HomePage extends StatelessWidget {
   int page = 0;
 
   @override
   Widget build(BuildContext context) {
+    HomePageController conhome = Get.put(HomePageController());
     final draweheader = UserAccountsDrawerHeader(
       margin: const EdgeInsets.only(right: 100),
       accountName: Text("tecnofull"),
@@ -29,14 +32,20 @@ class HomePage extends StatelessWidget {
           child: ListView(
             physics: const BouncingScrollPhysics(),
             children: [
-              listtiles(Icon(Icons.person), "Ver perfil", context, "/"),
-              listtiles(Icon(Icons.category), "Crear categoria", context,
-                  "/createnewcategory"),
-              listtiles(Icon(Icons.search), "Ver categoria", context, "/"),
-              SizedBox(
-                height: 250,
+              ListTile(
+                onTap: () {
+                  Get.toNamed("/createnewcategory");
+                },
+                leading: Icon(Icons.category),
+                title: Text("Crear categoria"),
               ),
-              listtiles(Icon(Icons.logout), "Salir", context, "/")
+              ListTile(
+                onTap: () {
+                      conhome.logout();
+                },
+                leading: Icon(Icons.category),
+                title: Text("Cerrar sesion"),
+              ),
             ],
           ),
         ))

@@ -6,7 +6,6 @@ import 'package:prueba/pages/homepage/homepage.dart';
 import 'package:prueba/pages/login/loginpage.dart';
 import 'package:prueba/pages/profile/profilepage.dart';
 import 'package:prueba/pages/register/register_page.dart';
-import 'pages/homepage/homepage.dart';
 import 'pages/categpry/createategory.dart';
 
 User myuser = User.fromJson(GetStorage().read("user") ?? {});
@@ -20,12 +19,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print(myuser.email);
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: "NOTAS",
-      // initialRoute: myuser.email != null ? "/homepage" : "/loginpage",
+      initialRoute: myuser.email != null ? "/homepage" : "/loginpage",
       //signo de pregunta(?) significa entonces id ternario y dos(??) si es null
-      initialRoute: "/createnewcategory",
+      // initialRoute: "/createnewcategory",
       getPages: [
         GetPage(name: "/loginpage", page: () => const LoginPage()),
         GetPage(name: "/registerpage", page: () => const RegisterPage()),

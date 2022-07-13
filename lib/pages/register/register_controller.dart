@@ -43,9 +43,12 @@ class RegisterController extends GetxController {
       print("RESPONSE ${response.body}");
 
       if (response.body["success"] == true) {
-        Get.snackbar("Cuenta creada", "Por favor registrate",
-            backgroundColor: const Color.fromARGB(190, 76, 175, 79),
-            icon: const Icon(Icons.verified_user));
+        Get.snackbar(
+          "Cuenta creada",
+          "Por favor registrate",
+          backgroundColor: const Color.fromARGB(190, 76, 175, 79),
+          icon: const Icon(Icons.verified_user),
+        );
         Get.offAndToNamed("/loginpage");
       } else {
         Get.snackbar("Error al crear tu cuenta", response.body["message"],

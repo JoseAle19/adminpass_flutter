@@ -1,6 +1,4 @@
-// To parse this JSON data, do
-//
-//     final user = userFromJson(jsonString);
+// ignore_for_file: non_constant_identifier_names
 
 import 'dart:convert';
 
