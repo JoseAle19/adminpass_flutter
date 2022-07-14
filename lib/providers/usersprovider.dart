@@ -18,7 +18,8 @@ class UserProvider extends GetConnect {
 
   Future<ResponseApi> login(String email, String password) async {
     Response response = await post(
-        url + "/login", {"email": email, "password": password},
+        url + "/login", 
+        {"email": email, "password": password},
         headers: {"Content-Type": "application/json"});
     if (response.body == null) {
       {
@@ -27,6 +28,7 @@ class UserProvider extends GetConnect {
       }
     }
     ResponseApi responseapi = ResponseApi.fromJson(response.body);
+    print(responseapi);
     return responseapi;
   }
 }

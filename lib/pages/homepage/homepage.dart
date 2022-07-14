@@ -14,7 +14,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     HomePageController conhome = Get.put(HomePageController());
     final draweheader = UserAccountsDrawerHeader(
-      decoration: const BoxDecoration(color:   Color.fromARGB(255, 92, 93, 94)),
+      decoration: const BoxDecoration(color: Color.fromARGB(255, 92, 93, 94)),
       margin: const EdgeInsets.only(right: 100),
       accountName: Text(myuser.name ?? ""),
       accountEmail: Text(myuser.email ?? ""),
@@ -40,9 +40,16 @@ class HomePage extends StatelessWidget {
             children: [
               ListTile(
                 onTap: () {
-                  Get.toNamed("/createnewcategory");
+                  conhome.gotoprofile();
                 },
-                leading: const Icon(Icons.category),
+                leading: const Icon(Icons.person),
+                title: const Text("Ver perfil"),
+              ),
+              ListTile(
+                onTap: () {
+                conhome.gotocreatecategory();
+                },
+                leading: const Icon(Icons.clear_all_outlined),
                 title: const Text("Crear categoria"),
               ),
               ListTile(

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:prueba/models/categorys.dart';
+import 'package:prueba/pages/categpry/category_controller.dart';
 import 'package:prueba/pages/note/note_controller.dart';
 
 class Notepage extends StatefulWidget {
@@ -10,7 +12,6 @@ class Notepage extends StatefulWidget {
 }
 
 class _NotepageState extends State<Notepage> {
-  String? dropdownValue;
 
   @override
   Widget build(BuildContext context) {
@@ -41,9 +42,6 @@ class _NotepageState extends State<Notepage> {
     );
   }
 
- 
-  
-
 //COLOR DEL FONDO DE PANTALLA
   Widget _boxform(BuildContext context, connote) {
     return Container(
@@ -57,13 +55,16 @@ class _NotepageState extends State<Notepage> {
         right: 25,
       ),
       child: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
         child: Column(children: [
           Container(
             height: 30,
-            margin: const EdgeInsets.only(left: 50, right: 50),
+            margin: const EdgeInsets.only(left: 10, right: 10),
             child: _desplegable(),
           ),
           _texttitle(connote),
+          _textdescription(connote),
+          _textdescription(connote),
           _textdescription(connote),
         ]),
       ),
@@ -71,26 +72,30 @@ class _NotepageState extends State<Notepage> {
   }
 
   Widget _desplegable() {
+    CategoryController concate = Get.put(CategoryController());
+    NoteController connote = Get.put(NoteController());
+
+
+    // print(concate.item);
     return Container(
       alignment: Alignment.center,
       child: DropdownButton<String>(
-        value: dropdownValue,
+        value: connote.valuedrop,
         hint: const Text('Seleccionar Categoria'),
         icon: const Icon(Icons.arrow_drop_down),
         onChanged: (String? newValue) {
           setState(() {
-            dropdownValue = newValue!;
+            connote.valuedrop = newValue!;
           });
         },
-        items: <String>['Red', 'Green', 'Blue']
-            .map<DropdownMenuItem<String>>((String value) {
-          return DropdownMenuItem<String>(
-            value: value,
-            child: Text(value),
-          );
-        }).toList(),
+        items: concate.item.map(buildmenuitem).toList(),
       ),
     );
+  }
+
+  DropdownMenuItem<String> buildmenuitem(DataCategory e) {
+    return DropdownMenuItem(
+        value: e.descriptionCategory, child: Text(e.descriptionCategory ?? ""));
   }
 }
 

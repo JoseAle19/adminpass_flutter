@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_null_comparison
+
 class DataCategorys {
   List<DataCategory> itemcategorys = [];
 
@@ -5,8 +7,8 @@ class DataCategorys {
     if (jsonlist == null) return;
 
     for (var item in jsonlist) {
-      final pelicula = DataCategory.fromJsonMap(item);
-      itemcategorys.add(pelicula);
+      final categ = DataCategory.fromJsonMap(item);
+      itemcategorys.add(categ);
     }
   }
 }

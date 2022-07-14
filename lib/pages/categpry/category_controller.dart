@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_declarations, prefer_interpolation_to_compose_strings
+
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -13,9 +15,12 @@ import '../../models/categorys.dart';
 
 class CategoryController extends GetxController {
   List<DataCategory> item = [];
+  List statelist = [];
+
   TextEditingController categoryctrl = TextEditingController();
   CategoryProvider categoryProvider = CategoryProvider();
   User user = User.fromJson(GetStorage().read("user") ?? {});
+
   void addcategory() async {
     String namecategory = categoryctrl.text.trim();
 
@@ -55,16 +60,17 @@ class CategoryController extends GetxController {
 
   Future<List<DataCategory>> getcategorys() async {
     final url = Enviroments.MY_API;
-
     final urlok = Uri.parse(url + "/category/getcategorys/${user.iduser}");
     final response = await http.get(urlok);
     final decodeata = json.decode(response.body);
     final categoryss = DataCategorys.jsonFromList(decodeata["data"]);
     item.addAll(categoryss.itemcategorys);
+    statelist = item;
+    print(statelist);
     return categoryss.itemcategorys;
   }
 
-  void gotocreatenoe(){
+  void gotocreatenote() {
     Get.toNamed("/notepage");
   }
 }
