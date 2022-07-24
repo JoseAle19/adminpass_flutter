@@ -40,11 +40,10 @@ class RegisterController extends GetxController {
       );
       Response response = await userprovider.registernewuser(user);
 
-
       if (response.body["success"] == true) {
         Get.snackbar(
           "Cuenta creada",
-          "Por favor registrate",
+          "Por favor inicia sesion",
           backgroundColor: const Color.fromARGB(190, 76, 175, 79),
           icon: const Icon(Icons.verified_user),
         );
@@ -75,16 +74,7 @@ class RegisterController extends GetxController {
       Get.snackbar("Error en el registro", "Contraseña vacia");
       return false;
     }
-//     if (confirmpass.isEmpty) {
-//       Get.snackbar("Error en el registro", "Confirma contraseña");
-//       return false;
-//     }
-// //comparar contraseñas
 
-//     if (confirmpass != password) {
-//       Get.snackbar("Error", "Las contraseñas no coinciden");
-//       return false;
-//     }
     if (name.isEmpty) {
       Get.snackbar("Error en el registro", "Nombre vacio");
       return false;

@@ -1,13 +1,37 @@
+// ignore_for_file: must_be_immutable, override_on_non_overriding_member, annotate_overrides
+
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:prueba/models/user.dart';
+import 'package:prueba/pages/profile/profile_controller.dart';
 
-class ProfilePage extends StatelessWidget {
+class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
 
   @override
+  State<ProfilePage> createState() => _ProfilePageState();
+}
+
+class _ProfilePageState extends State<ProfilePage> {
+  ProfileController conprofile = Get.put(ProfileController());
+
+  @override
+  User myuser = User.fromJson(GetStorage().read("user") ?? {});
+  void initState() {
+    conprofile.emailctrl.text = myuser.email ?? "";
+    conprofile.namectrl.text = myuser.name ?? "";
+    conprofile.lastnamectrl.text = myuser.lastName ?? "";
+    conprofile.passwordctrl.text = myuser.password ?? "";
+    conprofile.phonectrl.text = myuser.phone ?? "";
+    conprofile.agectrl.text = myuser.age ?? "";
+    conprofile.answerquesctrl.text = myuser.answerques ?? "";
+
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    User user = User.fromJson(GetStorage().read("user"));
     return Scaffold(
       bottomNavigationBar: SizedBox(
         height: 50,
@@ -23,26 +47,26 @@ class ProfilePage extends StatelessWidget {
             fontSize: 17,
           ),
         ),
-      
       ),
       body: Stack(
         //poicicionar elemnetos uno encimna del otro
         children: [
-          Positioned(
-            left: 5,
-            right: 5,
-            child: _backgroundCover(context)),
-          _boxform(context, user),
+          Positioned(left: 5, right: 5, child: _backgroundCover(context)),
+          _boxform(context),
         ],
       ),
     );
   }
 
-  Widget _backgroundCover(context){
-    return const Icon(Icons.person_pin_circle_rounded, size: 90, color: Color.fromARGB(255, 92, 93, 94),);
+  Widget _backgroundCover(context) {
+    return const Icon(
+      Icons.person_pin_circle_rounded,
+      size: 90,
+      color: Color.fromARGB(255, 92, 93, 94),
+    );
   }
 
-  Widget _boxform(BuildContext context, User user) {
+  Widget _boxform(BuildContext context) {
     return Container(
       // color: Colors.red,
       padding: const EdgeInsets.all(
@@ -58,36 +82,78 @@ class ProfilePage extends StatelessWidget {
         physics: const BouncingScrollPhysics(),
         child: Column(children: [
           desingtextfield(
-              TextInputType.text, const Icon(Icons.person), user.name?? "", false,"Nombre"),
-          desingtextfield(TextInputType.text,
-              const Icon(Icons.person_add_alt_1_outlined), user.lastName??"", false, "Apellido"),
-          desingtextfield(TextInputType.emailAddress, const Icon(Icons.person),
-              user.email??"", false, "Correo electronico"),
-          desingtextfield(
-              TextInputType.text, const Icon(Icons.person),user.password??"", true, "Contraseña"),
-          desingtextfield(
-              TextInputType.phone, const Icon(Icons.person), user.phone??"", false,"Telefono"),
-          desingtextfield(
-              TextInputType.number, const Icon(Icons.person),user.age??"", false, "Edad"),
+              TextInputType.emailAddress,
+              const Icon(Icons.person),
+              conprofile.emailctrl,
+              false,
+              "Correo electronico",
+              false,
+              myuser.email ?? ""),
           desingtextfield(TextInputType.text, const Icon(Icons.person),
-             user.answerques??"", true,"Color favorito"),
+              conprofile.namectrl, false, "Nombre", true, myuser.name ?? ""),
+          desingtextfield(
+              TextInputType.text,
+              const Icon(Icons.person_add_alt_1_outlined),
+              conprofile.lastnamectrl,
+              false,
+              "Apellido",
+              true,
+              myuser.lastName ?? ""),
+          desingtextfield(
+              TextInputType.text,
+              const Icon(Icons.person),
+              conprofile.passwordctrl,
+              true,
+              "Contraseña",
+              true,
+              myuser.password ?? ""),
+          desingtextfield(
+              TextInputType.phone,
+              const Icon(Icons.person),
+              conprofile.phonectrl,
+              false,
+              "Telefono",
+              true,
+              myuser.phone ?? ""),
+          desingtextfield(TextInputType.number, const Icon(Icons.person),
+              conprofile.agectrl, false, "Edad", true, myuser.age ?? ""),
+          desingtextfield(
+              TextInputType.text,
+              const Icon(Icons.person),
+              conprofile.answerquesctrl,
+              true,
+              "Color favorito",
+              true,
+              myuser.answerques ?? ""),
         ]),
       ),
     );
   }
 
   Widget desingtextfield(
-      TextInputType keyboard, Widget myicon, String mytext, bool yesornot, String labeltext) {
+      TextInputType keyboard,
+      Widget myicon,
+      TextEditingController typecontroller,
+      bool yesornot,
+      String labeltext,
+      bool iseneable,
+      String datauser) {
     return Container(
         padding: const EdgeInsets.symmetric(horizontal: 2, vertical: 15),
         child: TextFormField(
+          enabled: iseneable,
           obscureText: yesornot,
-          // controller: typecontroller,
+          controller: typecontroller,
           cursorColor: const Color.fromARGB(255, 15, 15, 15),
           keyboardType: keyboard,
           decoration: InputDecoration(
+            suffixIcon: IconButton(
+                onPressed: () {
+                  typecontroller.text = "";
+                },
+                icon: const Icon(Icons.backspace)),
             labelText: labeltext,
-            hintText: mytext,
+            hintText: datauser,
             fillColor: Colors.white,
             filled: true,
             border: const OutlineInputBorder(),
@@ -97,22 +163,17 @@ class ProfilePage extends StatelessWidget {
   }
 
   Widget _textedit() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        GestureDetector(
+    return Container(
+      color: const Color.fromARGB(221, 162, 157, 157),
+      child: TextButton(
+          onPressed: () {
+            conprofile.Updateuser();
+          },
           child: const Text(
-            'Editar Perfil',
-            style: TextStyle(
-              color: Colors.black,
-              fontSize: 17,
-            ),
-          ),
-        ),
-        const SizedBox(
-          width: 7,
-        ),
-      ],
+            "Actualizar datos",
+            style:
+                TextStyle(fontSize: 20, color: Color.fromARGB(255, 15, 15, 15)),
+          )),
     );
   }
 }

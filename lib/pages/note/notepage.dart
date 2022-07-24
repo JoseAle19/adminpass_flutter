@@ -1,7 +1,10 @@
+// ignore_for_file: unused_local_variable
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:prueba/models/categorys.dart';
 import 'package:prueba/pages/categpry/category_controller.dart';
+import 'package:prueba/pages/homepage/home_controller.dart';
 import 'package:prueba/pages/note/note_controller.dart';
 
 class Notepage extends StatefulWidget {
@@ -12,7 +15,6 @@ class Notepage extends StatefulWidget {
 }
 
 class _NotepageState extends State<Notepage> {
-
   @override
   Widget build(BuildContext context) {
     NoteController connote = Get.put(NoteController());
@@ -43,7 +45,7 @@ class _NotepageState extends State<Notepage> {
   }
 
 //COLOR DEL FONDO DE PANTALLA
-  Widget _boxform(BuildContext context, connote) {
+  Widget _boxform(BuildContext context, NoteController connote) {
     return Container(
       padding: const EdgeInsets.all(
         15,
@@ -63,9 +65,9 @@ class _NotepageState extends State<Notepage> {
             child: _desplegable(),
           ),
           _texttitle(connote),
-          _textdescription(connote),
-          _textdescription(connote),
-          _textdescription(connote),
+          _textdescription(connote, "Email", connote.emailctrl),
+          _textdescription(
+              connote, "Contraseña de la cuenta", connote.passwordctrl),
         ]),
       ),
     );
@@ -74,7 +76,6 @@ class _NotepageState extends State<Notepage> {
   Widget _desplegable() {
     CategoryController concate = Get.put(CategoryController());
     NoteController connote = Get.put(NoteController());
-
 
     // print(concate.item);
     return Container(
@@ -116,30 +117,32 @@ Widget _texttitle(NoteController connote) {
       ));
 }
 
-Widget _textdescription(connote) {
+Widget _textdescription(
+    connote, String label, TextEditingController typecontroller) {
   return Container(
       padding: const EdgeInsets.symmetric(horizontal: 2, vertical: 30),
       child: TextFormField(
-        controller: connote.descripcrtl,
+        controller: typecontroller,
         cursorColor: const Color.fromARGB(255, 15, 15, 15),
         keyboardType: TextInputType.text,
-        decoration: const InputDecoration(
+        decoration: InputDecoration(
             fillColor: Colors.white,
-            labelText: 'Descripcion',
+            labelText: label,
             filled: true,
-            border: OutlineInputBorder(
+            border: const OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.circular(50))),
-            prefixIcon: Icon(Icons.description)),
+            prefixIcon: const Icon(Icons.description)),
       ));
 }
 
-Widget _textedit(connote) {
+Widget _textedit(NoteController connote) {
+  HomePageController con = Get.put(HomePageController());
   return Row(
     mainAxisAlignment: MainAxisAlignment.center,
     children: [
       GestureDetector(
         onTap: () {
-          connote.isvalid();
+          connote.createnote();
         },
         child: const Text(
           'Crear nota',

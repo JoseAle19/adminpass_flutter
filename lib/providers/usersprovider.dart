@@ -2,6 +2,7 @@
 
 
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:prueba/enviroments/enviroments.dart';
 import 'package:prueba/models/user.dart';
 import 'package:prueba/models/responseapi.dart';
@@ -11,6 +12,15 @@ class UserProvider extends GetConnect {
 
   Future<Response> registernewuser(User user) async {
     Response response = await post(url + "/newuser", user.toJson(), headers: {
+      "Content-Type": "application/json"
+    });//Esoera hasta que el servidor de node retorne un valor
+    return response;
+  }
+
+  //acyualizar usuario
+  Future<Response> updateuser(User user) async {
+    User myuser = User.fromJson(GetStorage().read("user")??{});
+    Response response = await post(url + "/updateduser/${myuser.iduser}", user.toJson(), headers: {
       "Content-Type": "application/json"
     });//Esoera hasta que el servidor de node retorne un valor
     return response;
@@ -28,7 +38,6 @@ class UserProvider extends GetConnect {
       }
     }
     ResponseApi responseapi = ResponseApi.fromJson(response.body);
-    print(responseapi);
     return responseapi;
   }
 }

@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_declarations, prefer_interpolation_to_compose_strings
+// ignore_for_file: prefer_const_declarations, prefer_interpolation_to_compose_strings, unnecessary_brace_in_string_interps, unused_local_variable
 
 import 'dart:convert';
 
@@ -20,6 +20,7 @@ class CategoryController extends GetxController {
   TextEditingController categoryctrl = TextEditingController();
   CategoryProvider categoryProvider = CategoryProvider();
   User user = User.fromJson(GetStorage().read("user") ?? {});
+  final url = Enviroments.MY_API;
 
   void addcategory() async {
     String namecategory = categoryctrl.text.trim();
@@ -59,15 +60,19 @@ class CategoryController extends GetxController {
   }
 
   Future<List<DataCategory>> getcategorys() async {
-    final url = Enviroments.MY_API;
     final urlok = Uri.parse(url + "/category/getcategorys/${user.iduser}");
     final response = await http.get(urlok);
     final decodeata = json.decode(response.body);
     final categoryss = DataCategorys.jsonFromList(decodeata["data"]);
     item.addAll(categoryss.itemcategorys);
     statelist = item;
-    print(statelist);
     return categoryss.itemcategorys;
+  }
+
+  void deletecategory(idcate, iduser) async {
+    final urlok =
+        Uri.parse(url + "/category/deletecategory/$idcate}/${iduser}");
+    final response = await http.delete(urlok);
   }
 
   void gotocreatenote() {

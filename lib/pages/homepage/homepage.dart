@@ -4,15 +4,23 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:prueba/models/user.dart';
+import 'package:prueba/pages/widgets/widget_notes.dart';
 
 import 'home_controller.dart';
 
-class HomePage extends StatelessWidget {
-  HomePage({Key? key}) : super(key: key);
+class HomePage extends StatefulWidget {
+  const HomePage({Key? key}) : super(key: key);
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
   User myuser = User.fromJson(GetStorage().read("user") ?? {});
+  HomePageController conhome = Get.put(HomePageController());
+
   @override
   Widget build(BuildContext context) {
-    HomePageController conhome = Get.put(HomePageController());
     final draweheader = UserAccountsDrawerHeader(
       decoration: const BoxDecoration(color: Color.fromARGB(255, 92, 93, 94)),
       margin: const EdgeInsets.only(right: 100),
@@ -47,7 +55,7 @@ class HomePage extends StatelessWidget {
               ),
               ListTile(
                 onTap: () {
-                conhome.gotocreatecategory();
+                  conhome.gotocreatecategory();
                 },
                 leading: const Icon(Icons.clear_all_outlined),
                 title: const Text("Crear categoria"),
@@ -81,6 +89,48 @@ class HomePage extends StatelessWidget {
         centerTitle: true,
       ),
       drawer: listitems,
+      body: RefreshIndicator(
+        onRefresh: () {
+          setState(() {});
+          return conhome.getnotes();
+        },
+        child: Container(
+          margin: const EdgeInsets.all(1),
+          child: FutureBuilder(
+            future: conhome.getnotes(),
+            builder: (BuildContext context, AsyncSnapshot snapshot) {
+              if (snapshot.hasData) {
+                return (snapshot.data.length == 0)
+                    ? notdata()
+                    : ListNote(note: snapshot.data);
+              } else {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+            },
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget notdata() {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: const [
+          Text(
+            "NO tienes notas, crea notas nuevas",
+            style: TextStyle(fontSize: 20),
+          ),
+          Icon(
+            Icons.error_outline,
+            color: Colors.orange,
+            size: 100,
+          )
+        ],
+      ),
     );
   }
 

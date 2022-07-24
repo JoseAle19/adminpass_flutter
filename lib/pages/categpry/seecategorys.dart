@@ -23,7 +23,6 @@ class ListCategorys extends StatelessWidget {
             future: concate.getcategorys(),
             builder: (BuildContext context, AsyncSnapshot snapshot) {
               if (snapshot.hasData) {
-                print(snapshot.data.length);
                 return snapshot.data.length == 0
                     ? notData()
                     : Listcateg(categ: snapshot.data!);
